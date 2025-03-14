@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, IsDate, Min } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateTicketDto {
@@ -21,12 +21,12 @@ export class CreateTicketDto {
   arrivalTime: Date;
 
   @IsNotEmpty()
-  @IsNumber()
+  @Type(() => Number)
   @Min(0)
   price: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @Type(() => Number)
   @Min(0)
   availableSeats: number;
 

@@ -1,11 +1,17 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { UserRole } from 'src/config/roles';
 
-export class UserDto {
+export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   name: string;
 
-  @IsNotEmpty()
   @IsEmail()
   email: string;
 
@@ -16,4 +22,7 @@ export class UserDto {
   @IsNotEmpty()
   @IsString()
   phoneNumber: string;
+
+  @IsEnum(UserRole)
+  role: UserRole.TRAVELER = UserRole.TRAVELER;
 }

@@ -1,7 +1,7 @@
 import { IsOptional, IsNumber, IsString, IsDate, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SearchTicketsDto {
+export class UpdateTicketDto {
   @IsOptional()
   @IsString()
   from?: string;
@@ -11,17 +11,24 @@ export class SearchTicketsDto {
   to?: string;
 
   @IsOptional()
-  @IsString()
-  minPrice?: number;
-
-  @IsOptional()
-  @IsString()
-  maxPrice?: number;
+  @Type(() => Date)
+  @IsDate()
+  departureTime?: Date;
 
   @IsOptional()
   @Type(() => Date)
   @IsDate()
-  departureTime?: Date;
+  arrivalTime?: Date;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  price?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  availableSeats?: number;
 
   @IsOptional()
   @IsString()
