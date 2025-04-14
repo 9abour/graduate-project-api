@@ -1,0 +1,6 @@
+ticketId,from,to,departureTime,arrivalTime,price,availableSeats,travelCompany,status
+67c860fd40778689e438ce5e,Egypt,USA,2025-05-30 00:00:00,2025-05-31 00:00:00,40,0,9abour,Sold Out
+67d42529d2674154d8759a61,Egypt,UK,2025-03-15 00:00:00,2025-03-20 00:00:00,100,0,Egyption Travel,Sold Out
+67d426259aff00934672e2ca,UK,Egypt,2025-03-27 00:00:00,2025-03-29 00:00:00,200,0,Egyption Travel,Sold Out
+67d42732f6cce58a9cdcd8ea,Egypt,USA,2025-03-14 00:00:00,2025-03-17 00:00:00,200,97,Egyption Travel,Available
+67ed0b0f05af402aae43f7b5,Egypt,US,2025-04-04 00:00:00,2025-04-06 00:00:00,200,10,Egyption Travel,Available
