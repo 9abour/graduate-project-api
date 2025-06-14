@@ -23,8 +23,15 @@ export class TicketsService {
   }
 
   async search(searchTicketsDto: SearchTicketsDto): Promise<Ticket[]> {
-    const { from, to, minPrice, maxPrice, departureTime, travelCompany } =
-      searchTicketsDto;
+    const {
+      from,
+      to,
+      minPrice,
+      maxPrice,
+      departureTime,
+      arrivalTime,
+      travelCompany,
+    } = searchTicketsDto;
 
     // Base query
     let query: any = {};
@@ -40,18 +47,46 @@ export class TicketsService {
       if (maxPrice !== undefined) query.price.$lte = maxPrice;
     }
 
-    // Departure time
-    if (departureTime) {
-      const startOfDay = new Date(departureTime);
-      startOfDay.setHours(0, 0, 0, 0);
+    // Date range filtering
+    if (departureTime && arrivalTime) {
+      // For range search (between two dates)
+      const startDate = new Date(departureTime);
+      startDate.setHours(0, 0, 0, 0);
 
-      const endOfDay = new Date(departureTime);
-      endOfDay.setHours(23, 59, 59, 999);
+      const endDate = new Date(arrivalTime);
+      endDate.setHours(23, 59, 59, 999);
 
-      query.departureTime = {
-        $gte: startOfDay,
-        $lte: endOfDay,
-      };
+      query.$and = [
+        { departureTime: { $gte: startDate } },
+        { arrivalTime: { $lte: endDate } },
+      ];
+    } else {
+      // Individual date filters (maintain backward compatibility)
+      if (departureTime) {
+        const startOfDay = new Date(departureTime);
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const endOfDay = new Date(departureTime);
+        endOfDay.setHours(23, 59, 59, 999);
+
+        query.departureTime = {
+          $gte: startOfDay,
+          $lte: endOfDay,
+        };
+      }
+
+      if (arrivalTime) {
+        const startOfDay = new Date(arrivalTime);
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const endOfDay = new Date(arrivalTime);
+        endOfDay.setHours(23, 59, 59, 999);
+
+        query.arrivalTime = {
+          $gte: startOfDay,
+          $lte: endOfDay,
+        };
+      }
     }
 
     // Travel company

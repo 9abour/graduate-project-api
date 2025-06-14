@@ -24,6 +24,11 @@ export class SearchTicketsDto {
   departureTime?: Date;
 
   @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  arrivalTime?: Date;
+
+  @IsOptional()
   @IsString()
   travelCompany?: string;
 }
